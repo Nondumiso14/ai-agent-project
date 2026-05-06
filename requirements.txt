@@ -4,3 +4,4 @@ openai
 openai-agents
 python-dotenv
 pydantic
+requests
