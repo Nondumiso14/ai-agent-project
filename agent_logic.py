@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from agents import Agent, Runner
-#from tools.weather_tool import get_weather
+from tools.weather_tool import get_weather
 #from tools.time_tool import get_time
 
 load_dotenv()
