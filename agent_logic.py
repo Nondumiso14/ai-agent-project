@@ -6,15 +6,28 @@ from agents import Agent, Runner
 
 load_dotenv()
 
-# Define the agent with its tools
+#Defining agent with tools
 smart_assistant = Agent(
-    name="SmartAssistant",
-    instructions="You are a helpful assistant. Use tools whenever users ask about weather or time.",
-    model="gpt-4o-mini",
-    #tools=[get_weather, get_time]
+    name = "SmartAssistant",
+    instructions = "You are a helpful assistant, use tools whenever the user asks about the weather or time.",
+    model= "gpt-4o-mini",
+    #tools = [get_weather, get_time]
 )
 
-async def run_smart_agent(user_prompt: str):
-    # Runner handles the tool-call loop for you
+
+async def run_smart_agen_with_steps(user_prompt: str):
     result = await Runner.run(smart_assistant, user_prompt)
-    return result.final_output
+
+    #Extracting the reasoning tool calls and final output for the ui 
+    steps = []
+    for turn in result.turns:
+        if turn.tool_calls:
+            for call in turn.tool_calls:
+                steps.push(f"Decision: Calling {call.function.name} with {call.function.arguments}")
+    return {
+        "reply": result.final_output,
+        "steps": steps
+    }
+
+
+

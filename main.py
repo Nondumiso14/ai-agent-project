@@ -5,18 +5,19 @@ from agent_logic import run_smart_agent
 
 app = FastAPI()
 
-# Enable CORS for Vue frontend
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins = ["*"],
+    allow_methods = ["*"],
+    allow_headers = ["*"],
 )
 
 class ChatRequest(BaseModel):
-    message: str
+    message : str
+app.post("/")
+def home():
+    return {"Status" : "AI agent API is running."}
 
-@app.post("/chat")
+app.get("/chat")
 async def chat(request: ChatRequest):
     response = await run_smart_agent(request.message)
     return {"reply": response}
