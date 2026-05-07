@@ -10,13 +10,13 @@ tf = TimezoneFinder()
 @function_tool
 def time_get(city: str) -> str:
     """"
-    Returning the currrent time for any ciyt dynamically.
+    Returning the currrent time for any city dynamically.
     """
     try:
         #Converting city name into coordinates using geolocator(geocode)
         location = geolocator.geocode(city)
         if not location: 
-            return f"Sorry, I couldn't find te city {city}."
+            return f"Sorry, I couldn't find the city {city}."
         latitude = location.latitide
         longitude = location.longitude
 
