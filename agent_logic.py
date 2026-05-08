@@ -26,7 +26,18 @@ smart_assistant = Agent(
 )
 
 
-async def run_smart_agent(user_prompt: str):
-    # Runner handles the tool-call loop for you
+async def run_smart_agent_with_steps(user_prompt: str):
     result = await Runner.run(smart_assistant, user_prompt)
-    return result.final_output
+
+    steps = []
+    # Use final_turns to catch the reasoning process
+    if hasattr(result, 'final_turns'):
+        for turn in result.final_turns:
+            if hasattr(turn, 'tool_calls') and turn.tool_calls:
+                for call in turn.tool_calls:
+                    steps.append(f"Decision: Calling {call.function.name}")
+
+    return {
+        "reply": result.final_output,
+        "steps": steps
+    }
