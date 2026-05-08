@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+openai
+openai-agents
+python-dotenv
+pydantic
+geopy
+timezonefinder
+tools

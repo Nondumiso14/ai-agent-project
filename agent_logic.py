@@ -6,7 +6,7 @@ from tools.weather_tool import get_weather
 
 load_dotenv()
 
-# Define the agent with its tools
+#Defining agent with tools
 smart_assistant = Agent(
     name="SmartAssistant",
     instructions="""You are a helpful assistant. 
@@ -24,6 +24,7 @@ smart_assistant = Agent(
     model="gpt-4o-mini",
     tools=[get_weather]
 )
+
 
 
 async def run_smart_agent_with_steps(user_prompt: str):
