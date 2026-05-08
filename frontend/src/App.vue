@@ -20,11 +20,11 @@ Here is the complete, corrected `App.vue` file. I have fixed the avatar layout, 
           <input 
             v-model="userInput" 
             @keyup.enter="sendMessage" 
-            placeholder="Ask about weather or time..." 
+            placeholder="Ask about anything" 
             :disabled="loading"
           />
           <button @click="sendMessage" :disabled="loading || !userInput.trim()">
-            {{ loading ? '...' : '🔍︎' }}
+            {{ loading ? '...' : '➤' }}
           </button>
         </div>
 
@@ -69,13 +69,13 @@ Here is the complete, corrected `App.vue` file. I have fixed the avatar layout, 
 
 <script setup>
 import { ref, nextTick } from 'vue';
-/*import axios from 'axios';*/
+import axios from 'axios';
 
 const userInput = ref('');
 const messages = ref([
   { 
     role: 'assistant', 
-    content: 'Hello! I am the Kion Smart Bot. I can check the weather or time for you. How can I help?',
+    content: 'Hello! I am the Kion Smart Bot How can I helpyou today?',
     steps: [] 
   }
 ]);

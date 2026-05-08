@@ -8,7 +8,7 @@ geolocator = Nominatim(user_agent = "smart_assistant")
 tf = TimezoneFinder()
 
 @function_tool
-def time_get(city: str) -> str:
+def get_time(city: str) -> str:
     """"
     Returning the currrent time for any city dynamically.
     """
@@ -17,7 +17,7 @@ def time_get(city: str) -> str:
         location = geolocator.geocode(city)
         if not location: 
             return f"Sorry, I couldn't find the city {city}."
-        latitude = location.latitide
+        latitude = location.latitude
         longitude = location.longitude
 
         #converting co-ordinates into a timezone
@@ -29,7 +29,7 @@ def time_get(city: str) -> str:
         if not timezone_name:
             return (f"Sorry I couldn't extract the timezone for {city}")
         
-        current_time = datetime.now(zoneinfo(timezone_name))
+        current_time = datetime.now(zoneinfo.ZoneInfo(timezone_name))
 
         formatted_time = current_time.strftime( "%Y-%m-%d %H:%M:%S")
 

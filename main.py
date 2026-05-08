@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from agent_logic import run_smart_agent
+from agent_logic import run_smart_agent_with_steps
 
 app = FastAPI()
 
 app.add_middleware(
+    CORSMiddleware,
     allow_origins = ["*"],
     allow_methods = ["*"],
     allow_headers = ["*"],
@@ -13,11 +14,12 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     message : str
-app.post("/")
+    
+@app.post("/")
 def home():
     return {"Status" : "AI agent API is running."}
 
-app.get("/chat")
+@app.post("/chat")
 async def chat(request: ChatRequest):
-    response = await run_smart_agent(request.message)
-    return {"reply": response}
+    response = await run_smart_agent_with_steps(request.message)
+    return response
