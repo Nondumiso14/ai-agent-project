@@ -1,18 +1,30 @@
 import os
 from dotenv import load_dotenv
 from agents import Agent, Runner
-#from tools.weather_tool import get_weather
-from tools.time_tool import get_time
+from tools.weather_tool import get_weather
+#from tools.time_tool import get_time
 
 load_dotenv()
 
 #Defining agent with tools
 smart_assistant = Agent(
-    name = "SmartAssistant",
-    instructions = "You are a helpful assistant, use tools whenever the user asks about the weather or time.",
-    model= "gpt-4o-mini",
-    tools = [get_time] # once merged with nondumiso -> #tools = [get_weather, get_time]
+    name="SmartAssistant",
+    instructions="""You are a helpful assistant. 
+    Use tools whenever users ask about weather or time.
+    
+    IMPORTANT: If a user asks about a city that could exist 
+    in multiple locations (like Rosebank, Springfield, etc), 
+    always ask them to clarify which country or city 
+    they mean before calling the tool.
+    
+    Example: If user says 'weather in Rosebank', ask:
+    'Which Rosebank do you mean? Rosebank in Johannesburg 
+    or another location?'
+    """,
+    model="gpt-4o-mini",
+    tools=[get_weather]
 )
+
 
 
 async def run_smart_agent_with_steps(user_prompt: str):
